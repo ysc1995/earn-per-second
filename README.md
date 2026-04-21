@@ -10,13 +10,6 @@ A dynamic wallpaper that shows you how much money you're earning in real time.
 3. Money particles float up every second with a coin sound
 4. Move your mouse to spawn particles at your cursor position
 
-### Wallpaper Engine
-1. Open Wallpaper Engine → **Editor** → **Open from disk** → select this folder
-2. Set your **Annual Income (USD)** in the settings panel on the left
-3. The wallpaper starts automatically — no need to click Start
-
-> To publish: change `"visibility"` in `project.json` from `"private"` to `"public"`, then submit via the WE Workshop.
-
 ## Controls
 
 | Control | Action |
