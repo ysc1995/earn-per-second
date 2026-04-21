@@ -282,52 +282,13 @@
   let muted    = false;
   let audioCtx = null;
 
-  function getAudioCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    return audioCtx;
-  }
+const coinAudio = new Audio('512216__mateusz_chenc__coins.mp3');
+  coinAudio.volume = 0.6;
 
   function playCoinSound() {
     if (muted) return;
-    const ctx = getAudioCtx();
-    const now = ctx.currentTime;
-
-    function impact(t, vol) {
-      // Sharp click: bandpass-filtered noise burst
-      const samples = Math.floor(ctx.sampleRate * 0.018);
-      const buf  = ctx.createBuffer(1, samples, ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < samples; i++) data[i] = (Math.random() * 2 - 1);
-      const src    = ctx.createBufferSource();
-      src.buffer   = buf;
-      const filter = ctx.createBiquadFilter();
-      filter.type  = 'bandpass';
-      filter.frequency.value = 3000;
-      filter.Q.value = 0.4;
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(vol * 0.55, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
-      src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
-      src.start(t); src.stop(t + 0.02);
-
-      // Metallic ring with 3 harmonics
-      [1600, 2600, 3900].forEach((freq, i) => {
-        const osc  = ctx.createOscillator();
-        const g    = ctx.createGain();
-        const vols = [0.20, 0.09, 0.04];
-        const decs = [0.62, 0.40, 0.20];
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, t);
-        g.gain.setValueAtTime(vols[i] * vol, t + 0.001);
-        g.gain.exponentialRampToValueAtTime(0.001, t + decs[i]);
-        osc.connect(g); g.connect(ctx.destination);
-        osc.start(t); osc.stop(t + decs[i] + 0.01);
-      });
-    }
-
-    // First impact + one small bounce
-    impact(now,       1.0);
-    impact(now + 0.1, 0.35);
+    coinAudio.currentTime = 0;
+    coinAudio.play().catch(() => {});
   }
 
   function toggleMute() {
