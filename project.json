@@ -1,0 +1,19 @@
+{
+  "file": "index.html",
+  "preview": "preview.gif",
+  "title": "Earn Per Second",
+  "type": "web",
+  "visibility": "private",
+  "description": "A dynamic wallpaper that visualizes your real-time earnings. Floating gold particles show how much you earn every second.",
+  "tags": ["Finance", "Minimalist"],
+  "general": {
+    "properties": {
+      "annualincome": {
+        "order": 0,
+        "value": "100000",
+        "type": "textinput",
+        "text": "Annual Income (USD)"
+      }
+    }
+  }
+}

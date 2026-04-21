@@ -466,6 +466,25 @@ const coinAudio = new Audio('512216__mateusz_chenc__coins.mp3');
     mouseX = null;
     mouseY = null;
   });
+
+  // Wallpaper Engine integration — auto-start with income from WE settings panel
+  window.wallpaperPropertyListener = {
+    applyGeneralProperties(props) {
+      if (props.annualincome === undefined) return;
+      const income = parseFloat(props.annualincome.value);
+      if (!income || income <= 0) return;
+      document.getElementById('income-input').value = income;
+      if (document.getElementById('setup').style.display !== 'none') {
+        startFlow();
+      } else {
+        // Live-update if already running
+        perSecond = income / (365 * 24 * 3600);
+        document.getElementById('per-second-val').textContent = fmtMoney(perSecond);
+        document.getElementById('annual-label').textContent =
+          'Annual ' + income.toLocaleString('en-US', {style:'currency', currency:'USD', maximumFractionDigits:0});
+      }
+    }
+  };
 </script>
 </body>
 </html>
